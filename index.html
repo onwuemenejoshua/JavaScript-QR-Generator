@@ -35,22 +35,44 @@
   <style>
     #qr-code {
       display: flex;
-      padding: 33px 0;
       align-items: center;
       justify-content: center;
-      border: 1px solid red;
+      margin: 30px;
+      padding: 33px 0;
+      opacity: 0;
+      pointer-events: none;
+      border: 1px solid #f7bebe;
     }
 
     #Generate {
       background-color: #3498db;
+      transition: height ease;
       padding: 20px;
       border-radius: 2rem;
+      height: 300px;
+    }
+
+    #Generate.active {
+      height: 1000px;
+    }
+
+    #Generate.active .qr-code {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 0.5s 0.05s ease;
+    }
+
+    @media screen and (max-width: 414px) {
+      #Generate {
+        height: 400px;
+      }
     }
   </style>
   <body>
     <main>
       <div
         class="flex flex-col-reverse align-center justify-content m-auto md:max-w-4xl md:flex-row mt-24 p-10"
+        id="container"
       >
         <div id="Generate" class="w-full md:w-2/3 mr-24">
           <h1 class="text-3xl font-bold mb-4 md:text-4xl text-center">
@@ -60,6 +82,7 @@
 
           <form id="form" class="mt-4">
             <input
+              id="form-data"
               type="text"
               placeholder="Enter your url"
               class="mr-3 focus:outline-none mb-5 rounded p-4 w-full border-2 border-gray-200"
